@@ -2,7 +2,7 @@ import React from 'react'
 import Header from '../components/header/Header'
 import Footer from '../components/footer/Footer'
 import Router from '../routes/Router'
-import AHeader from '../components/Admin/header'
+import AHeader from '../components/Admin/Header'
 import Afooter from '../components/Admin/footer'
 import DoctorHeader from '../components/Doctors/DoctorHeader'
 
