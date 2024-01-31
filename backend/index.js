@@ -18,10 +18,12 @@ import doctorRoute from '../backend/routers/doctorRoutes.js'
 import chatRoute from '../backend/routers/chatRouter.js'
 import messageRoute from '../backend/routers/messageRoutes.js'
 import { disconnect } from "mongoose";
+import path from 'path'
+
 const app = express();
 ;
 app.use(cors({
-    origin: 'http://localhost:5173',
+    origin: process.env.CLIENT_URL,
     credentials: true, // Enable credentials
   }));
   app.use(express.json());
@@ -30,21 +32,35 @@ app.use(cookieParser())
 
 app.use(express.urlencoded({ extended: true }));
 
-// Add this middleware at the end to handle any unhandled errors
 app.use((err, req, res, next) => {
   console.error(err.stack);
   res.status(500).send("Something went wrong!");
 });
 app.use(handler);
 
-app.use("/users", userRoute);
-app.use("/admin", adminRoute);
-app.use("/doctor",doctorRoute)
-app.use('/chat',chatRoute)
-app.use('/message',messageRoute)
-app.use(notFoundError);
+app.use("/api/users", userRoute);
+app.use("/api/admin", adminRoute)
+app.use("/api/doctor",doctorRoute)
+app.use('/api/chat',chatRoute)
+app.use('/api/message',messageRoute)
 
 const port = process.env.PORT;
+
+if(process.env.NODE_ENV==="production"){
+  console.log(process.env.NODE_ENV);
+  console.log("hai")
+  const __dirname=path.resolve()
+  const parentDir = path.join(__dirname ,'..'); 
+  console.log(parentDir)
+  app.use(express.static(path.join(parentDir,'/frontend/dist')))
+  app.get('*',(req,res)=>res.sendFile(path.resolve(parentDir,'frontend','dist','index.html')))
+}else{
+app.get('/',(req,res)=>{
+    res.send("Server is Ready")
+})
+}
+app.use(notFoundError);
+
 
 app.listen(port, () => {
   console.log(`server is running on ${port}`);

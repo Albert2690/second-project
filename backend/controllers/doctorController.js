@@ -152,7 +152,7 @@ const getUser = async (req, res) => {
     try {
   
      console.log(req.body.chatId,'chatId')
-      const messages = await Message.find({chatId:req.body.chatId,is_seen:false})
+      const messages = await Message.find({chatId:req.body.chatId,is_seen:false}) 
       console.log(messages,'@messagea')
       const user = await User.findOne({_id:req.body.userId})
   

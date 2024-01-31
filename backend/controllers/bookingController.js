@@ -10,7 +10,7 @@ const bookingHistory = async (req, res) => {
       .populate("doctor");
  
     res.status(200).json({ bookings, success: true });
-  } catch (error) {
+  } catch (error) { 
     res.status(500).json({ message: "Internal Server Error" });
   }
 };
