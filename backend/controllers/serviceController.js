@@ -50,9 +50,9 @@ const listservice = async (req, res) => {
 
 const getServices = async (req, res) => {
   try {
-    console.log("helllo");
+    console.log("helllo@service");
     const services = await Service.find({});
-    console.log(services);
+   
     res.status(200).json({ services: services });
   } catch (error) {
     res.status(500).json({ message: "Interal Server Error" });
