@@ -11,7 +11,7 @@ import { toast } from "react-toastify";
 import Conversation from "./Conversation";
 import Loader from "../Loader";
 import { io } from "socket.io-client";
-const socket_url = import.meta.env.SOCKET_URL;
+const socket_url = import.meta.env.VITE_APP_SOCKET_URL;
 
 function Chat1() {
   const [Messages, { isloading }] = useFetchMessagesMutation();
@@ -36,7 +36,7 @@ function Chat1() {
 
  
 
-
+console.log(socket_url,'urll')
   useEffect(() => {
     const fetch = async () => {
       try {
@@ -54,6 +54,7 @@ function Chat1() {
   }, []);
 
   useEffect(() => {
+    console.log(socket_url,'sockett')
     socket.current = io(socket_url);
     socket.current.emit("new-user-add", doctorId);
     socket.current.on("get-users", (users) => {
@@ -63,7 +64,9 @@ function Chat1() {
 
 
   useEffect(()=>{
+    console.log(sendmessage,'send message')
     if(sendmessage!==null){
+      console.log('sending')
       socket.current.emit('send-message',sendmessage)
 
     }
@@ -90,53 +93,53 @@ function Chat1() {
       setCurrentChat(chatId);
      
     const recieverId = members.find((id)=>id!==doctorId)
-    console.log(recieverId,'recieverr')
+    // console.log(recieverId,'recieverr')
     setReciever(recieverId)
    
   };
  
-  const sendMessage = async (e) => {
-    e.preventDefault();
-    const chatId = currentChat ? currentChat : firstChat._id;
-    const chatt = chat.find((items)=>items._id === chatId )
+  // const sendMessage = async (e) => {
+  //   e.preventDefault();
+  //   const chatId = currentChat ? currentChat : firstChat._id;
+  //   const chatt = chat.find((items)=>items._id === chatId )
     
-    const recieverId = chatt.members.find((id)=>id!==doctorId)
+  //   const recieverId = chatt.members.find((id)=>id!==doctorId)
   
-    const sendSocket = {
-        senderId:doctorId,
-        text:newmessages,
-        chatId,
-        recieverId
-      }
+  //   const sendSocket = {
+  //       senderId:doctorId,
+  //       text:newmessages,
+  //       chatId,
+  //       recieverId
+  //     }
     
   
-    try {
-        if(sendSocket){
-            console.log('sendinhhh')
-            await socket.current.emit('send-message',sendSocket)
-        }
-        await socket.current.on('receive-message',(data)=>{
-            console.log('helllooiuuuu')
-            setrecievemessage(data)
-            console.log(data,'fgfdsgb')
-        })
-      const { data } = await createMessage({
-        text: newmessages,
-        senderId: doctorId,
-        chatId,
-      });
-     console.log(data,'hi this is neww message')
-      setMessages([...messages, data.message]);
+  //   try {
+  //       if(sendSocket){
+  //           console.log('sendinhhh')
+  //           await socket.current.emit('send-message',sendSocket)
+  //       }
+  //       await socket.current.on('receive-message',(data)=>{
+  //           console.log('helllooiuuuu')
+  //           setrecievemessage(data)
+  //           console.log(data,'fgfdsgb')
+  //       })
+  //     const { data } = await createMessage({
+  //       text: newmessages,
+  //       senderId: doctorId,
+  //       chatId,
+  //     });
+  //    console.log(data,'hi this is neww message')
+  //     setMessages([...messages, data.message]);
      
-      setNewmessages("");
+  //     setNewmessages("");
       
-      console.log(chat, "chatidcurent");
+  //     console.log(chat, "chatidcurent");
       
-    } catch (error) {
-        console.log(error)
-      toast.error("server error");
-    }
-  };
+  //   } catch (error) {
+  //       console.log(error)
+  //     toast.error("server error");
+  //   }
+  // };
 
  
 

@@ -13,7 +13,7 @@ import UserChatBox from "./UserChatBox";
 import UserConversation from "./UserConversation";
 import Loader from "../Loader";
 import { io } from "socket.io-client";
-const socket_url = import.meta.env.SOCKET_URL;
+const socket_url = import.meta.env.VITE_APP_SOCKET_URL;
 
 
 function UserChat() {
@@ -34,9 +34,8 @@ function UserChat() {
   const [newmessages, setNewmessages] = useState("");
   const [sendmessage,setSendmessage] = useState(null)
   const [recievemessage,setrecievemessage] = useState(null)
-  const [hi,setHi] = useState({})
 
-
+console.log(reciever,'@cuserChat')
   useEffect(() => {
     const fetch = async () => {
       try {
@@ -94,52 +93,52 @@ function UserChat() {
    
   };
  
-  const sendMessage = async (e) => {
-    e.preventDefault();
-    const chatId = currentChat ? currentChat : firstChat._id;
-    const chatt = chat.find((items)=>items._id === chatId )
+  // const sendMessage = async (e) => {
+  //   e.preventDefault();
+  //   const chatId = currentChat ? currentChat : firstChat._id;
+  //   const chatt = chat.find((items)=>items._id === chatId )
     
-    const recieverId = chatt.members.find((id)=>id!==userId)
+  //   const recieverId = chatt.members.find((id)=>id!==userId)
   
-    const sendSocket = {
-        senderId:userId,
-        text:newmessages,
-        chatId,
-        recieverId
-      }
+  //   const sendSocket = {
+  //       senderId:userId,
+  //       text:newmessages,
+  //       chatId,
+  //       recieverId
+  //     }
     
   
-    try {
-        if(sendSocket){
-            console.log('sendinhhh')
-            await socket.current.emit('send-message',sendSocket)
-        }
-        await socket.current.on('receive-message',(data)=>{
-            console.log('helllooiuuuu')
-            if(data.text){
-                setrecievemessage(data)
-                console.log("done")
+  //   try {
+  //       if(sendSocket){
+  //           console.log('sendinhhh')
+  //           await socket.current.emit('send-message',sendSocket)
+  //       }
+  //       await socket.current.on('receive-message',(data)=>{
+  //           console.log('helllooiuuuu')
+  //           if(data.text){
+  //               setrecievemessage(data)
+  //               console.log("done")
 
-            }
-            console.log(data,'fgfdsgb')
-        })
-      const { data } = await createMessage({
-        text: newmessages,
-        senderId:userId,
-        chatId,
-      });
-     console.log(data,'hi this is neww message')
-      setMessages([...messages, data.message]);
+  //           }
+  //           console.log(data,'fgfdsgb')
+  //       })
+  //     const { data } = await createMessage({
+  //       text: newmessages,
+  //       senderId:userId,
+  //       chatId,
+  //     });
+  //    console.log(data,'hi this is neww message')
+  //     setMessages([...messages, data.message]);
      
-      setNewmessages("");
+  //     setNewmessages("");
       
-      console.log(chat, "chatidcurent");
+  //     console.log(chat, "chatidcurent");
       
-    } catch (error) {
-        console.log(error)
-      toast.error("server error");
-    }
-  };
+  //   } catch (error) {
+  //       console.log(error)
+  //     toast.error("server error");
+  //   }
+  // };
 
  
 
@@ -193,7 +192,7 @@ function UserChat() {
                 </div>
                 {chat?.map((item) => (
                   <div onClick={() => chatload(item._id,item.members)}>
-                    <UserConversation data={item} userJwt={userJwt} />
+                    <UserConversation data={item} userJwt={userJwt} userId={userId} />
                   </div>
                 ))}
               </div>

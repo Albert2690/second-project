@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { useFetchMessagesMutation,useNewMessageMutation } from '../../slices/DoctorApislice';
+import { useFetchMessagesMutation,useNewMessageMutation,useUpdateMessageMutation } from '../../slices/DoctorApislice';
 import { toast } from 'react-toastify';
 import { format } from "timeago.js";
 import { useRef } from 'react';
@@ -8,13 +8,14 @@ import InputEmoji from 'react-input-emoji';
 
 
 
-function UserChatBox({Chat,currentUser,chat,userId,setSendmessage,recieveMessage}) {
-    console.log(chat,'userchat@chatbox')
-    console.log(recieveMessage?.chatId,'userchat@chatbox')
-    console.log(Chat,'userchat@chatbox')
+function UserChatBox({Chat,currentUser,chat,userId,setSendmessage,recieverId,recieveMessage}) {
+    // console.log(chat,'userchat@chatbox')
+    // console.log(recieveMessage?.chatId,'userchat@chatbox')
+    // console.log(Chat,'userchat@chatbox')
 
-    console.log(userId,'usererrere')
+    // console.log(userId,'usererrere')
     const socket = useRef();
+    const [updateMessage,{isloadinggg}] = useUpdateMessageMutation()
 
     const [messages,setMessages] =useState([])
     const [Messages, { isloading }] = useFetchMessagesMutation();
@@ -24,7 +25,7 @@ function UserChatBox({Chat,currentUser,chat,userId,setSendmessage,recieveMessage
 
     useEffect(()=>{
         if(recieveMessage!==null && recieveMessage?.chatId === Chat){
-            console.log("data recieved in chat :",recieveMessage)
+            // console.log("data recieved in chat :",recieveMessage)
             setMessages([...messages,recieveMessage])
         }
     },[recieveMessage])
@@ -37,6 +38,10 @@ useEffect(()=>{
             const result = await Messages({ doctorJwt:currentUser, chatId:Chat });
       
             setMessages(result.data.messages);
+            if(userId){
+        const resultt = await updateMessage({reciever:userId,chatId:Chat})
+
+            }
         }catch(error){
             console.log(error)
             toast.error("server Error")
@@ -53,10 +58,10 @@ useEffect(()=>{
 const sendMessage = async (e) => {
     e.preventDefault();
    
-    const chatt = chat.find((items)=>items._id === Chat )
+    // const chatt = chat.find((items)=>items._id === Chat )
     
-    const recieverId = chatt.members.find((id)=>id!==userId)
-  
+    // const recieverId = chatt.members.find((id)=>id!==userId)
+  console.log(recieverId,'@chatBoxuser')
     const sendSocket = {
         senderId:userId,
         text:newmessage,
@@ -70,9 +75,14 @@ const sendMessage = async (e) => {
       const { data } = await createMessage({
         text: newmessage,
         senderId: userId,
+        recieverId,
         chatId:Chat,
       });
-     console.log(data,'hi this is neww message')
+    //  console.log(data,'hi this is neww message')
+    if(userId){
+      await updateMessage({reciever:userId,chatId:Chat})
+
+    }
       setMessages([...messages, data.message]);
      
       setNewmessage("");

@@ -20,8 +20,8 @@ function ChatBox({Chat,currentUser,chat,doctorId,setSendmessage,recieverId,recie
     const [createMessage, { isloadingg }] = useNewMessageMutation();
     const [newmessage,setNewmessage]= useState('')
 
-console.log(recieverId,'@reciever')
-console.log(doctorId,'doctor/Id')
+// console.log(recieverId,'@reciever')
+// console.log(doctorId,'doctor/Id')
 
 useEffect(()=>{
     if(recieveMessage!==null && recieveMessage?.chatId === Chat){
@@ -38,8 +38,8 @@ useEffect(()=>{
             setMessages(result.data.messages);
            
           let  seenmessages = result.data.messages.filter((item)=>item.recieverId !== recieverId && item.is_seen === false )
-            console.log(seenmessages,'seenn')
-      console.log(result.data.messages,'messages')
+      //       console.log(seenmessages,'seenn')
+      // console.log(result.data.messages,'messages')
       if(doctorId){
         const resultt = await updateMessage({reciever:doctorId,chatId:Chat})
 
@@ -81,7 +81,7 @@ const sendMessage = async (e) => {
         recieverId,
         chatId:Chat,
       });
-     console.log(data,'hi this is neww message')
+    //  console.log(data,'hi this is neww message')
      if(doctorId){
       await updateMessage({reciever:doctorId,chatId:Chat})
 

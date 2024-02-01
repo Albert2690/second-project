@@ -66,8 +66,9 @@ app.listen(port, () => {
   console.log(`server is running on ${port}`);
 });
 
-
+console.log(process.env.CLIENT_URL)
 const io = new Server(8800,{
+
 cors :{
   origin:process.env.CLIENT_URL
 }
@@ -97,17 +98,20 @@ io.on('connection',(socket)=>{
     if(user){
     console.log('sending from socket to :',recieverId)
 
-//  io.to(user.socketId).emit('receive-message',  data , (acknowledge) => {
-//   if (acknowledge) {
-//     console.log("sent successfully", data); 
-//   } else {
-//     console.log("failed to send to", user.socketId);
-//   }
-// });
-
-io.to(user.socketId).emit('receive-message',  data )
+ io.to(user.socketId).emit('receive-message',  data , (acknowledge) => {
+  console.log('sendingg')
+  if (acknowledge) {
+    console.log("sent successfully", data); 
+  } else {
+    console.log("failed to send to", user.socketId);
+  }
+});
     }
   })
+
+// io.to(user.socketId).emit('receive-message',  data )
+//     }
+//   })
 
   socket.on('notification', (data) => {
     console.log(data,data)

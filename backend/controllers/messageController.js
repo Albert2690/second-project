@@ -47,7 +47,7 @@ const getmessages = async (req, res) => {
 
 const updateMessage = async(req,res)=>{
     try{
-        console.log(req.body,'@messageontroller')
+       console.log('heererr at updateing message')
         if(req.body.reciever){
             const message = await Message.updateMany({chatId:req.body.chatId, recieverId:req.body.reciever},{$set:{is_seen:true}})
 

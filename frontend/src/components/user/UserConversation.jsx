@@ -6,13 +6,15 @@ import { useDoctorProfileMutation,useGetUserMutation,useFetchMessagesMutation } 
 import { useGetProfileMutation } from '../../slices/userApislice';
 import Loader from '../Loader';
 
-function UserConversation({data,userJwt}) {
+function UserConversation({data,userJwt,userId}) {
 
  const [userProfile,{isLoading}] = useGetProfileMutation()
  const [userFetch,{isloading}] =useGetUserMutation()
  const [sendingUser,setSendingUser] = useState('')
  const [user,setUser]= useState('')
+ const [unreadMessages,setUnreadMessages] = useState([])
 
+console.log(userId,'@userConverstationuserId')
     useEffect(()=>{
 
         const fetchuser = async()=>{
@@ -20,13 +22,25 @@ function UserConversation({data,userJwt}) {
            const result = await userProfile({userJwt})
           
            setSendingUser(result.data.user)
-          const userId = data.members.find((id)=>id !== result.data.user._id)
+          const userIdd = data.members.find((id)=>id !== result.data.user._id)
        
-     const resultt = await userFetch({userJwt,userId:userId})
+     const resultt = await userFetch({userJwt,userId:userIdd,chatId:data._id})
+  console.log(resultt.data.messages,'@outside')
+
+     if(resultt.data.messages){
+      // console.log(resultt.data.messages,'@inside')
     
+     const filtered = resultt.data.messages.filter((item)=>item.senderId !== userId)
+     console.log(filtered,'filtered')
+    if(resultt.data.messages.length>0){
+      setUnreadMessages(filtered)
+    
+    }
+    }
      setUser(resultt.data.user)
           
             }catch(error){
+              console.log(error,'errrorr')
                 toast.error("Server Error")
             }
         }
@@ -41,7 +55,7 @@ function UserConversation({data,userJwt}) {
    
 
 
-
+console.log(unreadMessages,'unreadded')
   return (
     <div className="flex flex-col space-y-1 mt-4 -mx-2  overflow-y-auto">
            {isLoading || isloading?
@@ -67,7 +81,12 @@ function UserConversation({data,userJwt}) {
        
     }
      
-      <div className="ml-2 text-sm font-semibold">Dr. {user.name}</div>
+     <div className="ml-2 text-sm font-semibold">{user.name}</div>
+      {unreadMessages.length >0 &&
+      <div className=' ml-5 bg-green-500 rounded-full w-6 h-6'>
+  <div className=" mt-1 text-xs text-white font-semibold">{unreadMessages.length}</div>
+</div>
+}
     </button>
         )
 }

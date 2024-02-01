@@ -25,12 +25,13 @@ function Conversation({data,doctorJwt,doctorId}) {
           const userId = data.members.find((id)=>id !== result.data.doctor._id)
        
      const resultt = await userFetch({doctorJwt,userId:userId,chatId:data._id})
-  console.log(resultt.data.messages,'@outside')
+  // console.log(resultt.data.user,'@outside')
 
 if(resultt.data.messages){
   console.log(resultt.data.messages,'@inside')
 
  const filtered = resultt.data.messages.filter((item)=>item.senderId!==doctorId)
+//  console.log(resultt.data.messages,'unseen')
 if(resultt.data.messages.length>0){
   setUnreadMessages(filtered)
 
@@ -57,7 +58,7 @@ if(resultt.data.messages.length>0){
    
 
 
-// console.log(unreadMessages,'unreadd')
+console.log(unreadMessages,'unreadd')
   return (
     <div className="flex flex-col space-y-1 mt-4 -mx-2  overflow-y-auto">
            {isLoading || isloading?
