@@ -66,13 +66,14 @@ app.listen(port, () => {
   console.log(`server is running on ${port}`);
 });
 
-console.log(process.env.CLIENT_URL)
 const io = new Server(8800,{
 
 cors :{
   origin:process.env.CLIENT_URL
 }
 })
+console.log(process.env.CLIENT_URL,'socket url')
+
 
 
 
