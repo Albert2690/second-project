@@ -55,6 +55,7 @@ console.log(socket_url,'urll')
 
   useEffect(() => {
     console.log(socket_url,'sockett')
+    console.log("hi socket@ herere")
     socket.current = io(socket_url);
     socket.current.emit("new-user-add", doctorId);
     socket.current.on("get-users", (users) => {
