@@ -62,11 +62,11 @@ app.get('/',(req,res)=>{
 app.use(notFoundError);
 
 
-app.listen(port, () => {
+const server = app.listen(port, () => {
   console.log(`server is running on ${port}`);
 });
 
-const io = new Server(8800,{
+const io = new Server(server,{
 
 cors :{
   origin:process.env.CLIENT_URL

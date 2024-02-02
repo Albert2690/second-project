@@ -11,7 +11,7 @@ import { toast } from "react-toastify";
 import Conversation from "./Conversation";
 import Loader from "../Loader";
 import { io } from "socket.io-client";
-const socket_url = import.meta.env.VITE_APP_SOCKET_URL;
+const socket_url = import.meta.env.VITE_APP_BASE_URLL
 
 function Chat1() {
   const [Messages, { isloading }] = useFetchMessagesMutation();

@@ -13,7 +13,11 @@ import UserChatBox from "./UserChatBox";
 import UserConversation from "./UserConversation";
 import Loader from "../Loader";
 import { io } from "socket.io-client";
-const socket_url = import.meta.env.VITE_APP_SOCKET_URL;
+// const socket_url = import.meta.env.VITE_APP_SOCKET_URL;
+const socket_url = import.meta.env.VITE_APP_BASE_URLL;
+
+
+
 
 
 function UserChat() {
