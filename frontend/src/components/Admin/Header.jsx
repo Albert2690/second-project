@@ -10,7 +10,7 @@ import { useGetbookingNotificationMutation } from "../../slices/adminApislice";
 import { IoIosNotifications } from "react-icons/io";
 import Notification from "./Notification";
 import Notification1 from "./Notification1";
-const socket_url = import.meta.env.VITE_APP_SOCKET_URL;
+const socket_url = import.meta.env.VITE_APP_BASE_URLL;
 
 import { BiMenu } from "react-icons/bi";
 import { useSelector } from "react-redux";
