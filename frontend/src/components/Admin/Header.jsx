@@ -88,29 +88,29 @@ function AHeader() {
     };
   }, [clear, notification]);
 
-  // useEffect(() => {
-  //   const setupSocket = () => {
-  //     if (!socket.current) {
-  //       socket.current = io(socket_url);
-  //     }
+  useEffect(() => {
+    const setupSocket = () => {
+      if (!socket.current) {
+        socket.current = io(socket_url);
+      }
 
-  //     socket.current.on("adminNotification", (data) => {
-  //         console.log(data,'data from notification admin')
-  //         const notifications =   JSON.parse(localStorage.getItem("notifications")) || [];
-  //       const bookings = JSON.parse(localStorage.getItem("bookings")) || [];
-  //       if (!bookings.find((booking) => booking._id === data.booking._id)) {
-  //         bookings.push(data.booking);
-  //         notifications.push(data.message);
+      socket.current.on("adminNotification", (data) => {
+          console.log(data,'data from notification admin')
+          const notifications =   JSON.parse(localStorage.getItem("notifications")) || [];
+        const bookings = JSON.parse(localStorage.getItem("bookings")) || [];
+        if (!bookings.find((booking) => booking._id === data.booking._id)) {
+          bookings.push(data.booking);
+          notifications.push(data.message);
 
-  //         setNotification(notifications);
-  //         localStorage.setItem("bookings", JSON.stringify(bookings));
-  //         localStorage.setItem("notifications", JSON.stringify(notifications));
-  //       }
-  //     });
-  //   };
+          setNotification(notifications);
+          localStorage.setItem("bookings", JSON.stringify(bookings));
+          localStorage.setItem("notifications", JSON.stringify(notifications));
+        }
+      });
+    };
 
-  //   setupSocket();
-  // }, [notification]);
+    setupSocket();
+  }, [notification]);
 
   const toggleMenu = () => {
     menuref.current.classList.toggle("show_menu");
