@@ -11,6 +11,7 @@ import { io } from "socket.io-client";
 import { Link } from "react-router-dom";
 import VedioModal from "./VedioModal";
 const TABLE_HEAD = ["Name", "Day","Time", "Payment","Appoinment-Status","Message","Actions"];
+const socket_url = import.meta.env.VITE_APP_BASE_URLL
  
 
  
@@ -62,7 +63,7 @@ const updateBooking = async (bookingId, status) => {
     try{
    
        if(!socket.current){
-        socket.current = io("http://localhost:8800");
+        socket.current = io(socket_url);
 
        }
     
