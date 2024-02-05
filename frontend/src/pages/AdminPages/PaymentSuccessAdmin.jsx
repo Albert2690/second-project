@@ -10,8 +10,8 @@ import PaymentDetial1 from '../../components/Admin/paymentDetial1';
 function PaymentSuccessAdmin() {
 const [booking,{isLoading}] = useGetBookingDetialsMutation()
 
-const [result,setResult] = useState('')
-const [doctor,setDoctor] = useState('')
+const [result,setResult] = useState(null)
+const [doctor,setDoctor] = useState(null)
 console.log(doctor,'@result')
 console.log(result,'@result')
 // if(result.timeSlot){
@@ -31,8 +31,11 @@ console.log(result,'@result')
 
             const bookingDetials = await JSON.parse(localStorage.getItem('Booking'))
             const response = await booking({bookingDetials,paymentId:sessionId });
-            console.log(response.data,'@success')
-            if(response.data.booking){
+            console.log(response,'@success')
+            if(response.data.booking._id){
+              console.log(response.data.doctor,"@success")
+              console.log(response.data.doctor,'@success')
+
                 setDoctor(response.data.doctor)
                 setResult(response.data.booking)
 
@@ -63,11 +66,19 @@ console.log(result,'@result')
           <div class="py-10 text-center">
            
             
-            <span class="px-12  text-white rounded-md font-semibold py-3">
+            {/* <span class="px-12  text-white rounded-md font-semibold py-3">
 
               {result && doctor &&  <PaymentDetial1 booking={result} doctor={doctor} />}  
-             </span>
-           
+             </span> */}
+
+          <Link to={'/admin'} >
+            <button
+              
+              className="py-2 px-2 bg-primaryColor text-white min-w-[80px] font-semibold rounded-md"
+            >
+              Go Back
+            </button>
+          </Link>
              
           </div>
       </div>

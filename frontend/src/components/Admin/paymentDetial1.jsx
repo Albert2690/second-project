@@ -40,8 +40,8 @@ function PaymentDetial1(booking,doctor) {
     navigate(`/room/${value}/${doctorId}/${name}`)
     handleClose();
   },[navigate,value]);
-  console.log(booking.timeSlot)
-  console.log(doctor)
+  console.log(booking,'bookings')
+  console.log(doctor,'doctor')
 
 
   return (
@@ -106,7 +106,7 @@ function PaymentDetial1(booking,doctor) {
               
               className="py-2 px-2 bg-primaryColor text-white min-w-[80px] font-semibold rounded-md"
             >
-              Submit
+              Go Back
             </button>
           </Link>
 

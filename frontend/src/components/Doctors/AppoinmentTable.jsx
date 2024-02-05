@@ -182,7 +182,7 @@ const updateBooking = async (bookingId, status) => {
             </td>
               <td className="p-4">
                 <div className="flex gap-2 justify-center items-center">
-                <button onClick={()=>{setnotfication(user);} } className="bg-red-500 px-1 py-1 rounded text-md font-bold text-white">notify</button>
+                {/* <button onClick={()=>{setnotfication(user);} } className="bg-red-500 px-1 py-1 rounded text-md font-bold text-white">notify</button> */}
                
                 {user.status==='pending'?
                 <Typography  as="a"  variant="small"  color="blue-gray" className="font-medium">
