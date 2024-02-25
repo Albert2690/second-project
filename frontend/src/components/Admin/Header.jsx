@@ -1,7 +1,7 @@
 import React from "react";
 import { useEffect, useRef, useState } from "react";
 import { useMemo } from "react";
-import logo from "../../assets/images/vcare.png";
+import logo from "../../assets/images/Vcare.png";
 import profile from "../../assets/images/avatar-icon.png";
 import { NavLink, Link } from "react-router-dom";
 import ALogout from "./Logout";
