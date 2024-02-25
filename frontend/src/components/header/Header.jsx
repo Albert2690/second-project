@@ -1,6 +1,9 @@
 import React from "react";
 import { useEffect, useRef,useState } from "react";
-import logo from "../../assets/images/logo.png";
+// import logo from "../../assets/images/logo.png";
+import logo from "../../assets/images/vcare.png"
+
+
 import profile from "../../assets/images/avatar-icon.png";
 import { NavLink, Link } from "react-router-dom";
 import {BiMenu} from "react-icons/bi";

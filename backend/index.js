@@ -22,6 +22,7 @@ import path from 'path'
 
 const app = express();
 ;
+console.log('cors',process.env.CLIENT_URL)
 app.use(cors({
     origin: process.env.CLIENT_URL,
     credentials: true, // Enable credentials

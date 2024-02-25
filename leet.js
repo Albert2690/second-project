@@ -1,11 +1,14 @@
 const myArray = [1, 2, 3, 4, 5];
-let arr =[]
-const arrayAsString = myArray.join('');
 
-const numbber = Number(arrayAsString)+1
- const stringg = numbber.toString()
+let  x = -121
+var isPalindrome = function(x) {
+   let n =x.toString()
+    for(let i =0;i<n.length;i++){
+        if(n[i]!==n[n.length-(1+i)]){
+            return false
+        }
+    }
+    return true
+};
 
- for(let i =0;i<stringg.length;i++){
-    arr.push(Number(stringg[i]))
- }
-console.log(arr); // Output: "1, 2, 3, 4, 5"
+console.log(isPalindrome(x))

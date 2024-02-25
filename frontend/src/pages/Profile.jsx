@@ -57,7 +57,7 @@ export default function Profile() {
       
        <div className="max-w-[1170px] px-5  mx-auto my-16 ">
         <div className="grid md:grid-cols-3 gap-10">
-    {user && <div className='pb-[50px] px-[30px] h-[500px] bg-gradient-to-r  from-blue-300 to-cyan-200 rounded-md shadow-lg' >
+    {user && <div className='pb-[50px] px-[30px] h-[500px] bg-gradient-to-r  from-blue-300 to-cyan-200 rounded-md md:col-span-1  shadow-lg' >
     
     <div className="flex itmes-center mt-7   justify-center">
 
